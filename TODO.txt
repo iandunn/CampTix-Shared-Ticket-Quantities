@@ -1,0 +1,22 @@
+
+simple ui for entering ticket ids. first n fields are ids, last field is total to share between them
+   1,2,5,300
+   3,7,8,750
+
+or maybe metabox with checkbox walker
+	have to keep them in sync across each ticket screen since not in a centralized place
+	not problem as long as group together in data structure
+		use camptix options field
+		
+save_post callback to save which tickets it's grouped with and the shared total for them
+	
+callback to watch ticket sales
+	when new ones are sold, count the totals of all tickets in each group
+		if a group reaches the shared total, close all tickets in the group
+		 	don't adjust the individual totals in the database (which would be destructive), but find a way to just close sales without side effects
+		 		maybe a new ticket status, but probably not
+			maybe set the availability date to yesterday?
+		
+	prevent from overbooking. e.g. ticket A has 10 left, but shared total only has 2 left, and someone tries to order 5
+		maybe filter the total left for all tickets in the group on the fly, but leave the original total in the database alone
+			wouldn't want to filter it everywhere, just on the quantity dropdown
